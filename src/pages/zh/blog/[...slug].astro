@@ -1,0 +1,94 @@
+---
+import i18next, { t, changeLanguage } from "i18next";
+import { CollectionEntry, getCollection } from "astro:content";
+import PostLayout from "@src/layouts/PostLayout.astro";
+import HeroWave from "@comp/header/heroWave.astro";
+import GetIcon from "@comp/icons/getIcon.astro";
+import { ThemeConfig } from "@src/theme_config";
+import { utils } from "@src/utils/utils";
+
+changeLanguage("zh");
+
+export async function getStaticPaths() {
+    const thePageLanguage = "en"; //the language of this page
+    const posts = (await getCollection("blog")).filter((post) => post.data.lang === thePageLanguage);
+    return posts.map((post) => ({
+        params: { slug: post.data.abbrlink || post.slug },
+        props: post,
+    }));
+}
+type Props = CollectionEntry<"blog">;
+const post = Astro.props;
+const { Content, remarkPluginFrontmatter } = await post.render();
+---
+
+<PostLayout
+  postData={post.data}
+  frontmatter={remarkPluginFrontmatter}
+  useComments={ThemeConfig.comments.type !== false}
+>
+  <HeroWave
+    class="post-header"
+    slot="post-hero"
+    heroColor={post.data.heroColor}
+  >
+    <div class="post-info">
+      <h1 class="post-title">{post.data.title}</h1>
+      <div class="post-metas">
+        <div class="post-meta post-meta-time">
+          <GetIcon
+            Icon="local:solid.calendar-days"
+            class="publish-time meta-icon"
+          >
+            <span
+              >{
+                t("postPage.pubDate", {
+                  pubDate: utils.formatDate(post.data.pubDate),
+                })
+              }</span
+            >
+          </GetIcon>
+          <GetIcon Icon="local:solid.repeat" class="update-time meta-icon">
+            <span>
+              {
+                t("postPage.updatedDate", {
+                  updatedDate: utils.formatDate(
+                    post.data.updatedDate || post.data.pubDate
+                  ),
+                })
+              }
+            </span>
+          </GetIcon>
+          {
+            post.data.category && (
+              <GetIcon Icon="local:solid.tags" class="category meta-icon">
+                <span>{post.data.category}</span>
+              </GetIcon>
+            )
+          }
+        </div>
+        <div class="post-meta post-meta-content">
+          <GetIcon Icon="local:solid.clock" class="read-time meta-icon">
+            <span>
+              {
+                t("postPage.minutesRead", {
+                  minutesRead: remarkPluginFrontmatter.minutesRead,
+                })
+              }
+            </span>
+          </GetIcon>
+          <GetIcon Icon="local:solid.file-word" class="read-time meta-icon">
+            <span>
+              {
+                t("postPage.numberOfWords", {
+                  numberOfWords: remarkPluginFrontmatter.numberOfWords,
+                })
+              }
+            </span>
+          </GetIcon>
+        </div>
+      </div>
+    </div>
+  </HeroWave>
+  <Content />
+</PostLayout>

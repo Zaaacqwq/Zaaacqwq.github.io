@@ -1,0 +1,60 @@
+---
+import { utils } from "@utils/utils";
+import { getLocalIcons } from "./localIcon";
+
+interface Props {
+  Icon: any;
+  class?: string;
+  onclick?: string;
+}
+
+const { Icon, class: wrapClass, onclick } = Astro.props;
+const t = typeof Icon;
+let icon: any;
+var flag: number = -1;
+if (t === "function") {
+  flag = 0;
+} else if (t === "string") {
+  if (Icon === "") {
+    flag = -1;
+  } else if (Icon.substring(0, 4) === "<svg" || Icon.substring(0, 2) === "<i") {
+    flag = 1;
+  } else if (utils.checkURL(Icon) || Icon[0] === "/") {
+    flag = 2;
+  } else if (Icon.substring(0, 2) === "fa") {
+    flag = 3;
+  } else if (Icon.substring(0, 6) === "local:") {
+    flag = 4;
+    icon = getLocalIcons(Icon);
+  }
+}
+---
+
+{
+  flag !== -1 && (
+    <div class={wrapClass || ""} onclick={onclick || ""}>
+      {() => {
+        switch (flag) {
+          case 0:
+            return <Icon />;
+          case 1:
+            return <Fragment set:html={Icon} />;
+          case 2:
+            return <img src={Icon} alt="" />;
+          case 3:
+            return <i class={Icon} />;
+          case 4:
+            return <Fragment set:html={icon} />;
+        }
+      }}
+      <slot />
+    </div>
+  )
+}
+
+<style>
+  img {
+    width: 100%;
+    height: 100%;
+  }
+</style>

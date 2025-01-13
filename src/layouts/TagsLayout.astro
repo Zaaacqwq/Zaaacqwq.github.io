@@ -1,0 +1,37 @@
+---
+import { localizePath } from "astro-i18next";
+import PostsList from "@comp/postlist/postsList.astro";
+import HomeLayout from "@layout/HomeLayout.astro";
+import HeroWave from "@comp/header/heroWave.astro";
+import { ThemeConfig } from "@src/theme_config";
+interface Props {
+  page?: any;
+  baseurl: string;
+  tags: string[];
+  activeTag?: string;
+}
+
+const { tags, baseurl, activeTag, page } = Astro.props;
+---
+
+<HomeLayout asideDir={page ? "right" : false}>
+  <HeroWave slot="beforeContainer">
+    <div class="tags-wrap">
+      <div class:list={["tags", { "floating": ThemeConfig.tagsPage.floating }]}>
+        {
+          tags.map((tag) => (
+            <a
+              class:list={{ "tag": true, "active": tag === activeTag }}
+              href={localizePath(baseurl + tag)}
+            >
+              <span class="tag-text">{tag}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </HeroWave>
+  <Fragment slot="inContainer">
+    {page && <PostsList page={page} baseurl={localizePath(baseurl)} />}
+  </Fragment>
+</HomeLayout>

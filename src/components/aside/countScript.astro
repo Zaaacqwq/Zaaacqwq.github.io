@@ -1,0 +1,18 @@
+---
+---
+
+<script is:inline>
+zac
+  .getJson("/scripts/mdata.json")
+  .then((mdata) => {
+    const wordCounts = document.querySelector("#word-counts");
+    const postCounts = document.querySelector("#post-counts");
+    if (wordCounts)
+      wordCounts.innerText = zac.formatNumber(mdata.totalWordCounts);
+    if (postCounts)
+      postCounts.innerText = zac.formatNumber(mdata.totalPostCounts);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+</script>

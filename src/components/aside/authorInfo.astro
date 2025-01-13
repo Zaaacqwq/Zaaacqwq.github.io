@@ -1,0 +1,57 @@
+---
+import { t } from "i18next";
+import { ThemeConfig as TC } from "@src/theme_config";
+import GetIcon from "@comp/icons/getIcon.astro";
+import { utils } from "@src/utils/utils";
+const authorInfo: AuthorInfo = TC.aside.authorInfo;
+---
+
+<div class="author-info-card aside-card">
+  <div class="author-info">
+    <img class="author-avatar" src={authorInfo.avatar} alt="author-avatar" />
+    <div class="author-name">{t("site.author") || TC.site.author}</div>
+    <div
+      class="author-desc"
+      set:html={utils.replaceLink(
+        utils.executeEmbeddedScripts(
+          t("aside.authorInfo.description") || authorInfo.description
+        ),
+        "aside-card-link"
+      )}
+    />
+  </div>
+  <div class="blog-counts">
+    <div class="blog-count">
+      <div class="count">87</div>
+      <div class="tag">{t("words.articles")}</div>
+    </div>
+    <!-- <a class="blog-count" href="/categories">
+      <div class="count">9</div>
+      <div class="tag">{t("words.categories")}</div>
+    </a> -->
+    <a class="blog-count" href="/tags">
+      <div class="count">10</div>
+      <div class="tag">{t("words.tags")}</div>
+    </a>
+  </div>
+  <div class="social-medias">
+    {
+      authorInfo.socialMedias.map((media) => (
+        <div
+          title={media.customClass}
+          class:list={["social-media", media.customClass]}
+        >
+          {media.link ? (
+            <a href={media.link} class="social-link" title={media.title || ""}>
+              <GetIcon class="social-icon" Icon={media.icon} />
+            </a>
+          ) : (
+            <div class="social-link" title={media.title || ""}>
+              <GetIcon class="social-icon" Icon={media.icon} />
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </div>
+</div>

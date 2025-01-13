@@ -1,0 +1,121 @@
+---
+import { changeLanguage } from "i18next";
+import { ElButton, ElForm, ElFormItem, ElRadioGroup, ElRadio, ElInput, } from "element-plus";
+import "element-plus/dist/index.css";
+import { ThemeConfig as TC } from "@src/theme_config";
+import HeroWave from "@comp/header/heroWave.astro";
+import HomeLayout from "@layout/HomeLayout.astro";
+import { ref } from "vue";
+
+changeLanguage("en");
+
+interface Props {
+    page?: any;
+    baseurl: string;
+    tags: string[];
+    activeTag?: string;
+}
+const authorInfo: AuthorInfo = TC.aside.authorInfo;
+const { page } = Astro.props;
+// 定义 Vue 响应式数据
+const form = ref({
+    avatar: "",
+    name: "\u4F60\u4F60\u4F60",
+    email: "081208@qq.com",
+    gender: "1",
+});
+---
+
+<style>
+  .form-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .form-item-label {
+    color: #2d2a2a;
+    margin-right: 80px;
+  }
+  .content {
+    width: 50%;
+    display: flex;
+    background: #fff;
+    justify-content: left;
+    padding: 20px 40px;
+    border-radius: 20px;
+  }
+  .author-avatar {
+    width: 128px;
+    height: 128px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    margin-right: 500px;
+  }
+  .edit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+
+<script>
+  const button = document.getElementsByClassName("el-button")[0];
+  button.addEventListener("click", () => {
+    // 书写保存逻辑
+  });
+</script>
+
+<HomeLayout asideDir={page ? "right" : false}>
+  <HeroWave slot="beforeContainer">
+    <div class="content">
+      <ElForm :style={"width: 100%;"}>
+        <ElFormItem>
+          <div class="form-item">
+            <div class="form-item-label">Avatar</div>
+            <div class="edit">
+              <img
+                class="author-avatar"
+                src={authorInfo.avatar}
+                alt="author-avatar"
+              />
+            </div>
+          </div>
+        </ElFormItem>
+        <ElFormItem>
+          <div class="form-item">
+            <div class="form-item-label">Name</div>
+            <div>
+              <ElInput
+                value={form.value.name}
+                onInput={(e) => (form.value.name = e.target.value)}
+              />
+            </div>
+          </div>
+        </ElFormItem>
+        <ElFormItem>
+          <div class="form-item">
+            <div class="form-item-label">Email</div>
+            <div>{form.value.email}</div>
+          </div>
+        </ElFormItem>
+        <ElFormItem>
+          <div class="form-item">
+            <div class="form-item-label">Gender</div>
+            <ElRadioGroup
+              value={form.value.gender}
+              onChange={(value) => {
+                form.value.gender = value;
+              }}
+            >
+              <ElRadio value={1}>Male</ElRadio>
+              <ElRadio value={2}>Female</ElRadio>
+            </ElRadioGroup>
+          </div>
+        </ElFormItem>
+        <ElFormItem>
+          <ElButton>Save</ElButton>
+        </ElFormItem>
+      </ElForm>
+    </div>
+  </HeroWave>
+</HomeLayout>

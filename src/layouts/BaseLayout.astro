@@ -1,0 +1,77 @@
+---
+import "@style/global.scss";
+import "@style/components/page-content.scss";
+import i18next, { t } from "i18next";
+import { HeadHrefLangs } from "astro-i18next/components";
+import HeadInsert from "@comp/HeadInject.astro";
+import BodyInsert from "@comp/BodyInject.astro";
+import { ThemeConfig } from "@src/theme_config";
+import Header from "@comp/header/Header.astro";
+import Footer from "@comp/footer/Footer.astro";
+import Loading from "@comp/loading/loading.vue";
+import Search from "@comp/Search.astro";
+import Bubbles from "@comp/animation/bubbles.astro";
+import { SiteConfig } from "@src/site_config";
+interface Props {
+  class?: string;
+  description?: string;
+  themeColor?: string;
+}
+
+const { class: pageClass, description, themeColor } = Astro.props;
+
+const globalStyle = `:root{
+  --theme-color:${themeColor || ThemeConfig.site.themeColor};
+  --heading-font-family: var(--heading-font-family-${i18next.language});
+  --default-font-family: var(--default-font-family-${i18next.language});
+}`;
+---
+
+<!DOCTYPE html>
+<html lang={i18next.language} data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{ThemeConfig.site.title}</title>
+    <link rel="icon" href={ThemeConfig.site.favicon} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content={!description
+        ? t("site.description") || SiteConfig.description
+        : description}
+    />
+    <HeadHrefLangs />
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css"
+    /> -->
+    <style set:html={globalStyle}></style>
+    {
+      SiteConfig.markdownMath && (
+        <link
+          rel="stylesheet"
+          href="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css"
+        />
+      )
+    }
+    <HeadInsert />
+    <slot name="head-end" />
+  </head>
+  <body class={pageClass} style="overflow: hidden;">
+    <Loading client:only />
+    <div id="main-container" style="display: none;">
+      <Header />
+      <slot />
+      <Footer />
+    </div>
+    <BodyInsert />
+    {SiteConfig.localSearch && <Search />}
+    {
+      ThemeConfig.site.backgroundBubbles !== false && (
+        <Bubbles bubbles={ThemeConfig.site.backgroundBubbles} />
+      )
+    }
+    <slot name="body-end" />
+  </body>
+</html>

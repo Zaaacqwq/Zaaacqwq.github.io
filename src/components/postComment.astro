@@ -1,0 +1,63 @@
+---
+import { t } from "i18next";
+import GetIcon from "./icons/getIcon.astro";
+import { ThemeConfig } from "@src/theme_config";
+
+const { type, options } = ThemeConfig.comments;
+
+const script = () => {
+  let result = "";
+
+  switch (type) {
+    case "twikoo":
+      result = `zac.waitForGlobal('twikoo').then((twikoo) => {twikoo.init({envId: "${options.envId}",el: "#tcomment",lang: "${options.lang}",});}).catch((err) => console.error(err));`;
+      break;
+    case "waline":
+      result = `import { init } from 'https://unpkg.com/@waline/client@v2/dist/waline.mjs';init({el: '#tcomment',serverURL: '${options.serverURL}',dark: 'html[data-theme="dark"]'});`;
+      break;
+    case "valine":
+      result = `zac.waitForGlobal('Valine').then((Valine) => {new Valine({el: '#tcomment',appId: ${options.appId},appKey: ${options.appKey}});}).catch((error) => {console.error(error);});`;
+      break;
+  }
+  return result;
+};
+---
+
+<div class="post-comment">
+  <div class="comment-head">
+    <GetIcon Icon="local:solid.comments" class="comment-icon" />
+    <span>{t("words.comments")}</span>
+  </div>
+  <div class="comment-wrap">
+    <div id="tcomment"></div>
+  </div>
+</div>
+{
+  type === "twikoo" && (
+    <script
+      is:inline
+      async
+      src="https://cdn.staticfile.org/twikoo/1.6.16/twikoo.all.min.js"
+    />
+  )
+}
+{
+  type === "waline" && (
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@waline/client@v2/dist/waline.css"
+    />
+  )
+}
+{
+  type === "valine" && (
+    <Fragment>
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/@waline/client@v2/dist/waline.css"
+      />
+      <script is:inline async src="//unpkg.com/valine/dist/Valine.min.js" />
+    </Fragment>
+  )
+}
+{type !== false && <script type="module" is:raw set:html={script()} />}

@@ -1,0 +1,76 @@
+---
+import { t } from "i18next";
+import { localizePath } from "astro-i18next";
+import { ThemeConfig } from "@src/theme_config";
+import GetIcon from "@comp/icons/getIcon.astro";
+
+const items: Array<MenuItem> = ThemeConfig.header.menu;
+const items_t: Record<string, string> = t("header.menu", {
+  returnObjects: true,
+});
+---
+
+<Fragment>
+  {
+    items.map((item) => (
+      <div
+        class:list={[
+          "menu-item",
+          item.customClass,
+          { "has-child": item.children },
+        ]}
+      >
+        {item.link ? (
+          <a
+            href={localizePath(item.link || "")}
+            rel={item.link ? "" : "nofollow"}
+            class="menu-item-link"
+          >
+            <GetIcon Icon={item.icon} class="menu-item-icon" />
+            <span class="menu-item-name">
+              {items_t[item.name] || item.name}
+            </span>
+          </a>
+        ) : (
+          <div class="menu-item-link">
+            <GetIcon Icon={item.icon} class="menu-item-icon" />
+            <span class="menu-item-name">
+              {items_t[item.name] || item.name}
+            </span>
+          </div>
+        )}
+        {() => {
+          if (item.children) {
+            return (
+              <ul class="menu-children">
+                {item.children.map((child) => (
+                  <li class:list={["menu-child", child.customClass]}>
+                    {child.link ? (
+                      <a
+                        href={localizePath(child.link)}
+                        rel={child.link ? "" : "nofollow"}
+                        class="menu-child-link"
+                      >
+                        <GetIcon Icon={child.icon} class="menu-child-icon" />
+                        <span class="menu-child-name">
+                          {items_t[child.name] || child.name}
+                        </span>
+                      </a>
+                    ) : (
+                      <div class="menu-child-link">
+                        <GetIcon Icon={child.icon} class="menu-child-icon" />
+                        <span class="menu-child-name">
+                          {items_t[child.name] || child.name}
+                        </span>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            );
+          }
+        }}
+      </div>
+    ))
+  }
+</Fragment>

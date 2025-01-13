@@ -1,0 +1,52 @@
+---
+import { t } from "i18next";
+import GetIcon from "@comp/icons/getIcon.astro";
+import { ThemeConfig } from "@src/theme_config";
+import CountScript from "./countScript.astro";
+---
+
+<div class="siteinfo-card aside-card">
+  <div class="siteinfo-headline aside-card-headline">
+    <GetIcon
+      Icon="local:solid.circle-info"
+      class="siteinfo-icon aside-card-icon"
+    />
+    <div class="siteinfo-title aside-card-title">{t("words.siteInfo")}</div>
+  </div>
+  <div class="siteinfo-content aside-card-content">
+    {
+      ThemeConfig.aside.siteInfo.busuanzi && (
+        <Fragment>
+          <div class="siteinfo-item">
+            <span class="item-name">{t("words.uniqueVisitor")}</span>
+            <span class="item-count" id="busuanzi_value_site_uv" />
+          </div>
+          <div class="siteinfo-item">
+            <span class="item-name">{t("words.pageView")}</span>
+            <span class="item-count" id="busuanzi_value_site_pv" />
+          </div>
+        </Fragment>
+      )
+    }
+    {
+      ThemeConfig.aside.siteInfo.totalPostCounts && (
+        <div class="siteinfo-item">
+          <span class="item-name">{t("words.articlCount")}</span>
+          <span class="item-count" id="post-counts" />
+        </div>
+      )
+    }
+    {
+      ThemeConfig.aside.siteInfo.totalWordCounts && (
+        <div class="siteinfo-item">
+          <span class="item-name">{t("words.wordCount")}</span>
+          <span class="item-count" id="word-counts" />
+        </div>
+      )
+    }
+  </div>
+  {
+    (ThemeConfig.aside.siteInfo.totalPostCounts ||
+      ThemeConfig.aside.siteInfo.totalWordCounts) && <CountScript />
+  }
+</div>

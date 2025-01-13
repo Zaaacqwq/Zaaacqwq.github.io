@@ -1,0 +1,39 @@
+---
+import "@style/tags/tags.scss";
+import { changeLanguage } from "i18next";
+import { localizePath } from "astro-i18next";
+import TagsLayout from "@src/layouts/TagsLayout.astro";
+import { getCollection, CollectionEntry } from "astro:content";
+import { utils } from "@src/utils/utils";
+
+changeLanguage("zh");
+
+export async function getStaticPaths({ paginate }: any) {
+    const thePageLanguage = "en"; //the language of this page
+    const allPosts: CollectionEntry<"blog">[] = (await getCollection("blog"))
+        .filter((post) => post.data.lang === thePageLanguage)
+        .sort((a, b) => utils.compareDates(a.data.pubDate, b.data.pubDate));
+    const categories: string[] = [
+        ...new Set(allPosts
+            .flatMap((post) => [post.data.category || ""])
+            .filter((category) => typeof category === "string" && category !== "")),
+    ];
+    return categories.map((category) => {
+        const filteredPosts = allPosts.filter((post) => post.data.category?.includes(category));
+        return paginate(filteredPosts, {
+            params: { category: category },
+            props: { posts: filteredPosts, categories: categories },
+            pageSize: 10,
+        });
+    });
+}
+const { category } = Astro.params;
+const { page, categories } = Astro.props;
+---
+
+<TagsLayout
+  page={page}
+  tags={categories}
+  activeTag={category}
+  baseurl={localizePath("/categories/")}
+/>

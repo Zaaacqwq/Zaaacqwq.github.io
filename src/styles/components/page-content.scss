@@ -1,0 +1,154 @@
+#main-container {
+  display: flex;
+
+  align-items: center;
+
+  flex-direction: column;
+
+  min-height: 100vh;
+
+  .hero-shoot {
+    position: relative;
+
+    top: var(--header-nav-height);
+
+    display: flex;
+
+    flex-direction: column;
+
+    width: 100vw;
+
+    height: calc(100vh - var(--header-nav-height));
+
+    margin-bottom: 1rem;
+
+    font-family: var(--heading-font-family);
+
+    .hero-img {
+      position: absolute;
+
+      z-index: 1;
+
+      inset: 0;
+
+      &::after {
+        position: absolute;
+
+        z-index: 2;
+
+        display: block;
+
+        content: " ";
+
+        opacity: 0.2;
+
+        background: var(--mask-grey);
+
+        inset: 0;
+      }
+    }
+
+    .hero-title {
+      position: relative;
+
+      z-index: 3;
+
+      display: block;
+
+      margin: calc(50vh - 80px - var(--header-nav-height) - 2rem) auto 2rem;
+
+      color: white;
+
+      background: white;
+
+      //-webkit-background-clip: text;
+
+      background-clip: text;
+
+      font-size: 80px;
+
+      //-webkit-text-fill-color: transparent;
+
+      text-shadow: 5px 0px 10px rgba(0,0,0,1);
+    }
+
+    .hero-desc {
+      z-index: 3;
+
+      margin: 0 auto;
+
+      color: var(--font-white);
+
+      font-size: 40px;
+    }
+  }
+}
+
+#inner-container {
+  display: flex;
+
+  flex-grow: 1;
+
+  justify-content: center;
+
+  max-width: 1300px;
+
+  padding: calc(var(--header-nav-height) + 1rem) 1.5rem 0;
+
+  color: var(--font-black-white);
+
+  .main-content {
+    width: 1000px;
+
+    margin: 0 0.5rem;
+  }
+
+  .aside-content {
+    width: 280px;
+
+    margin: 0 0.5rem;
+  }
+}
+
+@media screen and (width <= 1400px) {
+  #inner-container {
+    width: 100%;
+
+    padding-top: calc(var(--header-nav-height) + 1rem);
+    .main-content {
+      width: 70%;
+
+      margin: 0 0.5rem;
+    }
+
+    .aside-content {
+      width: 30%;
+
+      max-width: 280px;
+
+      margin: 0 0.5rem;
+    }
+  }
+}
+
+@media screen and (width <= 1100px) {
+  #main-container {
+    .hero-shoot {
+      display: none;
+    }
+  }
+}
+
+@media screen and (width <= 700px) {
+  #inner-container {
+    flex-direction: column;
+    .main-content {
+      width: 100%;
+    }
+    .aside-content {
+      width: 100%;
+
+      max-width: 100%;
+    }
+  }
+}

@@ -1,0 +1,81 @@
+---
+import i18next from "i18next";
+import { localizePath } from "astro-i18next";
+import { ThemeConfig } from "@src/theme_config";
+import { utils } from "@utils/utils";
+import Pagination from "@comp/postlist/pagination.astro";
+import type { CollectionEntry } from "astro:content";
+interface Props {
+  page: any;
+  baseurl: string;
+}
+const { page, baseurl } = Astro.props;
+const posts: CollectionEntry<"blog">[] = page.data.filter(
+  (post: CollectionEntry<"blog">) => post.data.lang === i18next.language
+);
+---
+
+<div class="posts-list">
+  {
+    posts.map((post) => (
+      <div
+        class="main-card post-card"
+        onclick={`zac.goToUrl("${localizePath(
+          `/blog/${post.data.abbrlink || post.slug}/`
+        )}")`}
+      >
+        <div class="post-card-cover">
+          <img
+            src={post.data.cover || ThemeConfig.postPage.defaultCover}
+            alt="post-cover"
+          />
+        </div>
+        <div class="post-card-info">
+          <header class="post-card-header">
+            {post.data?.category ? (
+              <a
+                class="post-card-category"
+                href={localizePath(`/categories/${post.data.category}`)}
+              >
+                {post.data.category}
+              </a>
+            ) : (
+              <div class="post-card-category">{post.data.category}</div>
+            )}
+          </header>
+          <div class="post-card-title">{post.data.title}</div>
+          <div class="post-card-desc">{post.data.description}</div>
+          <footer class="post-card-footer">
+            <ul class="post-card-tags">
+              {() => {
+                if (post.data.tags) {
+                  return post.data.tags.map((tag) => (
+                    <li class="post-card-tag">
+                      {tag && tag != "" ? (
+                        <a href={localizePath(`/tags/${tag}`)}>{tag}</a>
+                      ) : null}
+                    </li>
+                  ));
+                }
+              }}
+            </ul>
+            <div class="post-card-update">
+              <a href="/">
+                {utils.formatDate(post.data.updatedDate || post.data.pubDate)}
+              </a>
+            </div>
+          </footer>
+        </div>
+      </div>
+    ))
+  }
+</div>
+{
+  page.lastPage > 1 && (
+    <Pagination
+      baseurl={baseurl}
+      pageSize={page.lastPage}
+      activePage={page.currentPage}
+    />
+  )
+}

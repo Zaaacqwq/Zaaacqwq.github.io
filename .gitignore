@@ -1,0 +1,9 @@
+/.vscode
+node_modules
+/.astro
+/pages/rss.xml.js
+dist
+*.log
+.tree
+.treec
+/yarn.lock

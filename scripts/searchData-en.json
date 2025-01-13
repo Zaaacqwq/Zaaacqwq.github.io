@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Extended Search",
+    "content": "Extended SearchThis site uses to provide local search services, allowing you to use extended search a search format that can fine tune search results, similar to Space represents logical , pipe symbol | represents logical , and to escape spaces, use double quotes .| Token | Match type | Description || | | || | fuzzy match | Items that fuzzy match || | exact match | Items that are || | include match | Items that include || | inverse exact match | Items that do not include || | prefix exact match | Items that start with || | inverse prefix exact match | Items that do not start with || | suffix exact match | Items that end with || | inverse suffix exact match | Items that do not end with |",
+    "url": "/blog/lkk0v40t"
+  },
+  {
+    "title": "helloworld",
+    "content": "Hello WorldWelcome to ZacBlog!",
+    "url": "/blog/lkk0fjvf"
+  }
+]

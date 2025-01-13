@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 export default defineConfig({
-  site: LiveURL,
+  site: SiteConfig.site,
   integrations: [astroI18next(), sitemap(), vue()],
   output: "static",
   build: {

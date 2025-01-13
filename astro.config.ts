@@ -39,8 +39,17 @@ const rehypePlugins: any = [
   SiteConfig.markdownMath === "Mathjax" && rehypeMathjax,
 ].filter(Boolean);
 
+const ServerPort = 3000;
+const LocalHostURL = `http://localhost:${ServerPort}`;
+const LiveURL = "https://zaaacqwq.github.io/";
+let BaseURL = LocalHostURL;
+
+if (process.env.NODE_ENV === "production") {
+  BaseURL = LiveURL;
+}
+
 export default defineConfig({
-  site: SiteConfig.site,
+  site: LiveURL,
   integrations: [astroI18next(), sitemap(), vue()],
   output: "static",
   build: {

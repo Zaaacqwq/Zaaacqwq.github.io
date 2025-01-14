@@ -13,41 +13,50 @@ Hello, I'm Zachary Chen, a passionate and versatile software developer with a st
 
 ### Professional Experience
 
-- **Coding Instructor & Application Developer** @ Code Ninjas, Richmond Hill, ON (Jan 2024 – Apr 2024)  
-  Taught programming and game development to teenagers using JavaScript, Lua, and C#. Developed the "Go Luxury Car" project and a scheduling system using Vue.js, C#, and SQL.
+- **Software Verification Co-op** @ WDI Wise Device Inc, Richmond Hill, ON (Sep 2024 – Dec 2024)  
+  - Developed and automated the Sensor Performance Test framework, enhancing sensor data accuracy and system reliability.  
+  - Designed and implemented software using Visual Studio Code, C++, C, and MFC to integrate testing modules and streamline performance validation.  
+  - Utilized Jira and Jenkins for task tracking and SVN for version control, ensuring effective collaboration and version management.  
+  - Analyzed and documented test results, enabling quick debugging and improving sensor verification efficiency.
 
-- **VEX Robotics Team Assistant Coach** @ RoboEDU, East York, ON (Jun 2022 – Jun 2023)  
-  Guided teams in programming with RobotC, CAD design using SolidWorks and Fusion 360, and competitive robot engineering.
+- **Coding Instructor & Application Developer** @ Code Ninjas, Richmond Hill, ON (Jan 2024 – Apr 2024)  
+  - Taught programming and game development in JavaScript, Microsoft MakeCode, Roblox (Lua), and Unity (C#) to teenagers.  
+  - Developed and maintained the "Go Luxury Car" project and scheduling system using Vue.js, C#, and SQL, enhancing full-stack capabilities.
 
 - **Website Maintenance Specialist** @ North Star Needs Society (May 2024 – Present)  
-  Maintain and enhance the organization's Wix website, focusing on user interface improvements and up-to-date content.
+  - Maintain and update the website on Wix, ensuring it reflects current activities and programs.  
+  - Implement UI changes to enhance user experience and accessibility.
 
 ### Projects
 
 - **Personal Blog Platform** (Sep 2023 – Dec 2024)  
-  Built a feature-rich blog platform using Spring Boot, Maven, Vue.js, AWS, and Redis. Integrated Markdown editing, advanced commenting, and email recovery systems.
+  - Developed a comprehensive blog platform using Spring Boot, Maven, Vue.js, SQL, AWS, and Redis.  
+  - Focused on user experience with a Markdown editor and enhanced comment system.  
+  - Implemented security and efficiency features, including email binding for recovery and AOP for log management.
 
 - **Front-End Portfolio Page** (Jan 2024 – Apr 2024)  
-  Designed an interactive portfolio utilizing JavaScript, Three.js, Particle.js, and React.js, showcasing dynamic content and innovative particle systems for user interaction.
+  - Crafted an interactive portfolio with JavaScript, HTML, CSS, utilizing Astro and Vue.js for dynamic content across various sections.  
+  - Introduced an innovative particle system for user interaction, showcasing technical and creative web design skills.
 
 - **Go Luxury Car Sales Management** (Sep 2023 – Dec 2024)  
-  Developed dynamic user interfaces using Vue.js and integrated backend APIs to ensure real-time data synchronization and an optimized user experience.
+  - Spearheaded the development of dynamic user interfaces for a luxury car sales management web application using Vue.js, focusing on enhancing user experience and frontend functionality.  
+  - Integrated backend APIs to ensure real-time synchronization and efficient data handling, significantly improving operational efficiency and user interaction.
 
 ### Skills
 
-- **Languages:** Java, Python, C, C++, C#, JavaScript, TypeScript, Vue, React, HTML, CSS, PHP  
-- **Frameworks & Tools:** Spring Boot, Node.js, Maven, SQL (MySQL, PostgreSQL), AWS, Azure, Linux, Git  
-- **Productivity Tools:** SolidWorks, Blender, Unity, Unreal Engine, Adobe Creative Suite, Microsoft Office  
+- **Languages:** Java, Python, C, C++, C#, JavaScript, TypeScript, Vue, React, HTML, CSS, PHP, XML  
+- **Frameworks & Tools:** Spring Boot, Node.js, Maven, SQL (MySQL, PostgreSQL), Redis, AWS, Linux, Jira, Jenkins, SVN, AOP, OOP  
+- **Productivity Tools:** Visual Studio Code, IntelliJ, MATLAB, SolidWorks, Blender, C4D, Unreal Engine, Unity, Microsoft Office, Adobe Creative Suite  
 
 ### Education
 
-- **Bachelor of Applied Science in Computer Engineering** @ University of Waterloo (2020 – 2023)  
+- **Bachelor of Applied Science in Computer Engineering** @ University of Waterloo (2023 – 2028)  
   Recipient of the President’s Scholarship of Distinction.
 
 ### Awards
 
-- VEX EDR World Championship Design Award (2021 & 2022)  
-- USACO Bronze (Dec 2022)  
-- ACSL Gold (May 2021)  
+- **VEX EDR World Championship Design Award** (2021 & 2022)  
+- **USACO Bronze** (Dec 2022)  
+- **ACSL Gold** (May 2021)  
 
 You can explore my projects and learn more about my work on [GitHub](https://github.com/Zaaacqwq) and [LinkedIn](https://www.linkedin.com/in/zaaac/). Let's connect!
